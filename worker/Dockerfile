@@ -4,5 +4,6 @@ COPY . .
 RUN mvn package -D skipTests
 
 FROM openjdk:8-jre-alpine as run
-COPY --from=build /code/target/worker-jar-with-dependencies.jar /run/worker-jar-with-dependencies.jar
-CMD java -jar /run/worker-jar-with-dependencies.jar
+WORKDIR /run
+COPY --from=build /code/target/worker-jar-with-dependencies.jar /run/worker.jar
+CMD java -jar /run/worker.jar
